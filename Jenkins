@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                git 'https://github.com/your-repo/terraform-ec2-jenkins.git'
+                git 'https://github.com/harshal1996sahadeokar/Resource_Creation_CICD.git'
             }
         }
         stage('Terraform Init') {
