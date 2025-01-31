@@ -8,14 +8,22 @@ resource "aws_instance" "jenkins_server" {
 
   user_data = <<-EOF
     #!/bin/bash
-    sudo yum update -y
-    sudo yum install -y java-11-openjdk
-    sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
-    sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
-    sudo yum install -y jenkins
-    sudo systemctl enable jenkins
-    sudo systemctl start jenkins
-    sudo yum install -y git
+    #Java--INstall
+    sudo apt update -y
+    sudo apt install fontconfig openjdk-17-jre -y
+    java -version
+    openjdk version "17.0.13" 2024-10-15
+    OpenJDK Runtime Environment (build 17.0.13+11-Debian-2)
+    OpenJDK 64-Bit Server VM (build 17.0.13+11-Debian-2, mixed mode, sharing)
+    #sudo yum update -y
+    #sudo yum install -y java-11-openjdk
+    sudo wget -O /usr/share/keyrings/jenkins-keyring.asc \
+    https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+    echo "deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc]" \
+    https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
+    /etc/apt/sources.list.d/jenkins.list > /dev/null
+    sudo apt-get update
+    sudo apt-get install jenkins
   EOF
 
   tags = {
